@@ -11,6 +11,7 @@ from tqdm import tqdm
 import numpy as np
 import imageio
 from skimage.metrics import structural_similarity
+import sys, getopt
 
 def psnr(image, ground_truth):
     """ Computes PSNR for a network output based on the known ground truth
@@ -99,7 +100,7 @@ def test_nn(input_folder, target_folder, test_seq, imsave_flag):
     compfolder = Path('results/comp')
     compfolder.mkdir(exist_ok=True)
     
-    metrics = np.zeros((len(flsin), 2))
+    metrics = np.zeros((len(flsin), 4))
 
     # Load network from file
     n = msdnet.network.MSDNet.from_file('regr_params.h5', gpu=True)
@@ -121,21 +122,40 @@ def test_nn(input_folder, target_folder, test_seq, imsave_flag):
             imageio.imsave(compfolder / 'comp_{:05d}.png'.format(i), msdnet.loggers.stitchimages([image, ground_truth, output[0]], scaleoutput=True))
         
         # Compute and save comparison metrics
-        metrics[i,0] = psnr(output[0], ground_truth)
-        metrics[i,1] = ssim(output[0], ground_truth)
+        metrics[i,0] = psnr(image, ground_truth)
+        metrics[i,1] = psnr(output[0], ground_truth)
+        metrics[i,2] = ssim(image, ground_truth)
+        metrics[i,3] = ssim(output[0], ground_truth)
     
     # Compute mean value and std for psnr and ssim
-    psnr_mean = metrics[:,0].mean()
-    psnr_std = metrics[:,0].std()
-    ssim_mean = metrics[:,1].mean()
-    ssim_std = metrics[:,1].std()
-    return (psnr_mean, psnr_std, ssim_mean, ssim_std)
+    psnr_before_mean = metrics[:,0].mean()
+    psnr_before_std = metrics[:,0].std()
+    psnr_after_mean = metrics[:,1].mean()
+    psnr_after_std = metrics[:,1].std()
+    ssim_before_mean = metrics[:,2].mean()
+    ssim_before_std = metrics[:,2].std()
+    ssim_after_mean = metrics[:,3].mean()
+    ssim_after_std = metrics[:,3].std()
+    return (psnr_before_mean, psnr_before_std, psnr_after_mean, psnr_after_std, ssim_before_mean, ssim_before_std, ssim_after_mean, ssim_after_std)
         
 if __name__ == "__main__":
-    # Replace with the location of input and target files
+    # Replace with the positions of input and target files
     input_folder = "/path/to/input/files"
     target_folder = "/path/to/target/files"
     
+    imsave_flag = False
+    
+    #Sequence of apple numbers for testing
     test_seq = np.array([6, 12, 15, 21, 22, 28, 35, 42, 46, 47, 49, 52, 53, 54, 67, 72, 77, 87, 90, 94])
-    res = test_nn(input_folder, target_folder, test_seq)
+    
+    opts, args = getopt.getopt(sys.argv[1:],"i:t:v")
+    for opt, arg in opts:
+        if opt == "-i":
+            input_folder = arg
+        elif opt == "-t":
+            target_folder = arg
+        elif opt == "-v":
+            imsave_flag = True
+            
+    res = test_nn(input_folder, target_folder, test_seq, imsave_flag)
     print(res)

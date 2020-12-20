@@ -9,8 +9,9 @@ import msdnet
 from pathlib import Path
 import numpy as np
 import random
+import sys, getopt
 
-def train_nn(input_folder, target_folder, train_seq, validation_num, layers_num)
+def train_nn(input_folder, target_folder, train_seq, validation_num, layers_num):
     """ Trains the network using the specified subset of data.
     By default, msdnet performs the training until the script execution is stopped manually.
     Training is run with 100 layers, L2 loss, and ADAM optimization algorithm.
@@ -99,15 +100,30 @@ def train_nn(input_folder, target_folder, train_seq, validation_num, layers_num)
     msdnet.train.train(n, t, val, bprov, 'regr_params.h5',loggers=[consolelog,filelog,imagelog], val_every=len(datsv), progress=True)
     # Every epoch when the validation performance is better than the previous best, network parameters are saved in the 'regr_params.h5' file
     
-if __main__ == "__main__":
-    # Replace with the location of input and target files
+if __name__ == "__main__":
+    # Replace with the position of input and target files
     input_folder = "/path/to/input/files"
     target_folder = "/path/to/target/files"
     
+    validation_num = 1000
+    layers_num = 100
+    
+    #Sequence of apple numbers for training
     train_seq = np.array([ 1,  2,  3,  4,  5,  7,  8,  9, 10, 11, 13, 14, 16, 17, 18, 19, 20,
     23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 43, 44, 45, 48, 50, 
     51, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 73, 74, 75, 76, 78, 
     79, 80, 81, 82, 83, 84, 85, 86, 88, 89, 91, 92, 93])
     
-    train_nn(input_folder, target_folder, train_seq, 1000, 100)
+    opts, args = getopt.getopt(sys.argv[1:],"v:l:i:t:")
+    for opt, arg in opts:
+        if opt == "-v":
+            validation_num = int(arg)
+        elif opt == "-l":
+            layers_num = int(arg)
+        elif opt == "-i":
+            input_folder = arg
+        elif opt == "-t":
+            target_folder = arg
+    
+    train_nn(input_folder, target_folder, train_seq, validation_num, layers_num)
     
