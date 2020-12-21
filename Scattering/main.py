@@ -14,6 +14,7 @@ from pathlib import Path
 from tifffile import TiffFile
 from tifffile import TiffWriter
 from tqdm import tqdm
+import sys, getopt
 
 class ScatteringFilter(object):
     def __init__(self, proj, data_fname = "data.csv", pixel_size = 0.15, alpha = 1.0):
@@ -274,6 +275,19 @@ if __name__ == "__main__":
     
     row_range = [375, 385]
     
-    select = get_name_masks(input_folder)[0:1]
+    opts, args = getopt.getopt(sys.argv[1:],"i:o:a:b:e:")
+    for opt, arg in opts:
+        if opt == "-i":
+            input_folder = arg
+        elif opt == "-o":
+            output_folder = arg
+        elif opt == "-a":
+            alpha = float(arg)
+        elif opt == "-b":
+            row_range[0] = int(arg)
+        elif opt == "-e":
+            row_range[1] = int(arg)
+    
+    select = get_name_masks(input_folder)[:]
     for num in select:
         sino_processing(input_folder, output_folder, num, value_scale, alpha, row_range)
