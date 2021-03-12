@@ -1,10 +1,14 @@
 """
 Copyright (c) 2020 Vladyslav Andriiashen
 Centrum Wiskunde & Informatica, Amsterdam, the Netherlands.
-Code is available via LINKXXXX.
-Reference paper: XXXXX
-"""
 
+Code is available via AppleCT Dataset Project; www.github.com/cicwi/applect-dataset-project
+
+Referenced paper: S.B. Coban, V. Andriiashen, P.S. Ganguly, et al.
+Parallel-beam X-ray CT datasets of apples with internal defects and label balancing for machine learning. 2020. www.arxiv.org/abs/2012.13346
+
+Dataset available via Zenodo; 10.5281/zenodo.4212301
+"""
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
