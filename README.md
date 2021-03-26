@@ -17,11 +17,11 @@ Scripts are arranged into subfolders depending on their use.
 * *Dataset_Generation*: This folder contains scripts for generating Datasets A and B.
 * *Scattering*: This folder contains scripts for generating Dataset C.
 * *bias_elimination*: This contains the two bias elimination algorithms introduced in the submission, both in Python and MATLAB syntax. The input files *apple_defects_full.csv* and *apple_defects_partial.csv* are available via the Zenodo page for the Datasets A-C (see link below). 
-* *Reconstruction*: This contains the scripts used to obtain the results in **Technical Validation** in the submission. 
+* *Technical_Validation*: This contains the scripts used to obtain the results in **Technical Validation** in the submission. 
 
 
 ## Dataset access
-The datasets and the ground truths are made available via Zenodo. 
+The datasets and the ground truth reconstructions are made available via Zenodo. 
 
 * [Simulated Datasets A-C](https://zenodo.org/record/4212301)
 * [Ground Truth Reconstructions 1 of 6](https://zenodo.org/record/4550729)
