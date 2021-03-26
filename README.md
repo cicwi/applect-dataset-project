@@ -14,8 +14,9 @@ The datasets are suitable for image reconstruction, segmentation, automatic defe
 ### Codes
 Scripts are arranged into subfolders depending on their use.
 
-* *Dataset generation*: This folder contains scripts for simulating the Datasets A-C.
-* *Bias elimination*: This contains the two bias elimination algorithms introduced in the submission, both in Python and MATLAB syntax. The input files *apple_defects_full.csv* and *apple_defects_partial.csv* are available via the Zenodo page for the Datasets A-C (see link below). 
+* *Dataset_Generation*: This folder contains scripts for generating Datasets A and B.
+* *Scattering*: This folder contains scripts for generating Dataset C.
+* *bias_elimination*: This contains the two bias elimination algorithms introduced in the submission, both in Python and MATLAB syntax. The input files *apple_defects_full.csv* and *apple_defects_partial.csv* are available via the Zenodo page for the Datasets A-C (see link below). 
 * *Reconstruction*: This contains the scripts used to obtain the results in **Technical Validation** in the submission. 
 
 
