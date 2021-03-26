@@ -35,3 +35,9 @@ The datasets and the ground truth reconstructions are made available via Zenodo.
 
 ## Contributions or suggestions 
 External contributions to the codes are currently not allowed. However, we welcome any feedback or suggestions for making the scripts more user-friendly, please email the corresponding authors listed in the submission. 
+
+
+## Publication and licensing 
+The submission is currently under review for Nature Scientific Data. A second version of the submission will be added to Arxiv shortly. When referring to these codes, please cite to the latest version of the submission on Arxiv. 
+
+The codes are released under the [MIT License](https://opensource.org/licenses/MIT); the datasets under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode). 
